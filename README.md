@@ -184,4 +184,4 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 - Modern, premium aesthetic with black and white theme
 - Interactive training zone tabs
 - Dynamic continuously looping video background on homepage
-- Complete information about facilities, programs, and contact details 
+- Complete information about facilities, programs, and contact details "# SPACE-SEVEN" 
