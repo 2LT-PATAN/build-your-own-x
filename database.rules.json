@@ -1,0 +1,10 @@
+{
+  "rules": {
+    ".read": "auth != null",
+    ".write": "auth != null",
+    "connectionTests": {
+      ".read": true,
+      ".write": true
+    }
+  }
+} 

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Placeholder Icon Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        canvas {
+            border: 1px solid #ccc;
+            margin: 10px 0;
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 15px;
+            background-color: #4F46E5;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+        .instruction {
+            background-color: #f5f5f5;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>PWA Placeholder Icon Generator</h1>
+    
+    <div class="instruction">
+        <h3>Instructions:</h3>
+        <p>1. Click the buttons below to generate each placeholder icon</p>
+        <p>2. Right-click on the generated icon and select "Save Image As..."</p>
+        <p>3. Save the files with the correct names in the icons directory</p>
+    </div>
+
+    <h2>192x192 Icon</h2>
+    <canvas id="canvas192" width="192" height="192"></canvas><br>
+    <a href="#" class="btn" id="generate192">Generate 192x192 Icon</a>
+    <a href="#" class="btn" id="download192" download="icon-192x192.png">Download</a>
+
+    <h2>512x512 Icon</h2>
+    <canvas id="canvas512" width="512" height="512"></canvas><br>
+    <a href="#" class="btn" id="generate512">Generate 512x512 Icon</a>
+    <a href="#" class="btn" id="download512" download="icon-512x512.png">Download</a>
+
+    <h2>Apple Touch Icon (180x180)</h2>
+    <canvas id="canvasApple" width="180" height="180"></canvas><br>
+    <a href="#" class="btn" id="generateApple">Generate Apple Touch Icon</a>
+    <a href="#" class="btn" id="downloadApple" download="apple-touch-icon.png">Download</a>
+
+    <h2>Favicon (32x32)</h2>
+    <canvas id="canvasFavicon" width="32" height="32"></canvas><br>
+    <a href="#" class="btn" id="generateFavicon">Generate Favicon</a>
+    <a href="#" class="btn" id="downloadFavicon" download="favicon.ico">Download</a>
+
+    <script>
+        function generateIcon(canvas, text, bgColor) {
+            const ctx = canvas.getContext('2d');
+            
+            // Background
+            ctx.fillStyle = bgColor || '#4F46E5';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Text
+            ctx.fillStyle = 'white';
+            const fontSize = canvas.width / 4;
+            ctx.font = `bold ${fontSize}px Arial`;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(text || 'SS', canvas.width/2, canvas.height/2);
+            
+            return canvas.toDataURL('image/png');
+        }
+        
+        // Setup event listeners
+        document.getElementById('generate192').addEventListener('click', function(e) {
+            e.preventDefault();
+            const canvas = document.getElementById('canvas192');
+            const dataUrl = generateIcon(canvas, 'SS');
+            document.getElementById('download192').href = dataUrl;
+        });
+        
+        document.getElementById('generate512').addEventListener('click', function(e) {
+            e.preventDefault();
+            const canvas = document.getElementById('canvas512');
+            const dataUrl = generateIcon(canvas, 'SS');
+            document.getElementById('download512').href = dataUrl;
+        });
+        
+        document.getElementById('generateApple').addEventListener('click', function(e) {
+            e.preventDefault();
+            const canvas = document.getElementById('canvasApple');
+            const dataUrl = generateIcon(canvas, 'SS', '#000000');
+            document.getElementById('downloadApple').href = dataUrl;
+        });
+        
+        document.getElementById('generateFavicon').addEventListener('click', function(e) {
+            e.preventDefault();
+            const canvas = document.getElementById('canvasFavicon');
+            const dataUrl = generateIcon(canvas, 'S');
+            document.getElementById('downloadFavicon').href = dataUrl;
+        });
+        
+        // Generate icons on page load
+        window.onload = function() {
+            document.getElementById('generate192').click();
+            document.getElementById('generate512').click();
+            document.getElementById('generateApple').click();
+            document.getElementById('generateFavicon').click();
+        };
+    </script>
+</body>
+</html> 

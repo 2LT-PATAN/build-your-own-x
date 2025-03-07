@@ -1,0 +1,657 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Import fonts through _document.js instead for better performance */
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  letter-spacing: -0.01em;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+:where([class^="ri-"])::before { 
+  content: "\f3c2"; 
+}
+
+/* Improved number input styling */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -webkit-appearance: textfield;
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+/* Use better performance animations */
+@keyframes fade-in {
+  from {
+    transform: translateY(8px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Luxury shine effect */
+@keyframes subtle-shine {
+  0% {
+    background-position: -100% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Premium fade effect */
+@keyframes premium-fade {
+  0% {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Glitch effect for images */
+@keyframes glitch-anim-1 {
+  0%, 100% { 
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+  }
+  10% {
+    clip-path: polygon(0 5%, 100% 0, 100% 100%, 0 95%);
+    transform: translate3d(-2px, 0, 0);
+  }
+  20% {
+    clip-path: polygon(0 15%, 100% 5%, 100% 90%, 0 100%);
+  }
+  30% {
+    clip-path: polygon(0 10%, 100% 20%, 100% 100%, 0 90%);
+  }
+  40% {
+    clip-path: polygon(0 20%, 100% 10%, 100% 90%, 0 95%);
+    transform: translate3d(-4px, 0, 0);
+  }
+  50% {
+    clip-path: polygon(0 15%, 100% 15%, 100% 80%, 0 85%);
+    transform: translate3d(-2px, 0, 0) scale(1.01);
+  }
+  60% {
+    clip-path: polygon(0 10%, 100% 10%, 100% 90%, 0 90%);
+  }
+  70% {
+    clip-path: polygon(0 5%, 100% 15%, 100% 95%, 0 90%);
+    transform: translate3d(2px, 0, 0);
+  }
+  80% {
+    clip-path: polygon(0 10%, 100% 5%, 100% 95%, 0 100%);
+    transform: translate3d(2px, 0, 0) scale(1.01);
+  }
+  90% {
+    clip-path: polygon(0 5%, 100% 10%, 100% 100%, 0 85%);
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+/* 3D tilt effect */
+.tilt-image-container {
+  transform-style: preserve-3d;
+  transform: perspective(1000px);
+}
+
+.tilt-image-container img,
+.tilt-image-container .image-overlay {
+  transform: translateZ(20px);
+  will-change: transform;
+}
+
+/* Parallax layers */
+.parallax-layer {
+  will-change: transform;
+}
+
+/* Distortion overlay */
+.distortion-overlay {
+  position: absolute;
+  inset: 0;
+  background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48ZmlsdGVyIGlkPSJub2lzZSI+PGZlVHVyYnVsZW5jZSB0eXBlPSJmcmFjdGFsTm9pc2UiIGJhc2VGcmVxdWVuY3k9IjAuODUiIHJlc3VsdD0ibm9pc2UiIHN0aXRjaFRpbGVzPSJzdGl0Y2giLz48ZmVDb2xvck1hdHJpeCB0eXBlPSJtYXRyaXgiIHZhbHVlcz0iMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMC4yIDAiLz48L2ZpbHRlcj48cmVjdCB3aWR0aD0iMzAwIiBoZWlnaHQ9IjMwMCIgZmlsdGVyPSJ1cmwoI25vaXNlKSIgb3BhY2l0eT0iMC4wNSIvPjwvc3ZnPg==');
+  opacity: 0;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.distortion-container:hover .distortion-overlay {
+  opacity: 0.2;
+}
+
+/* Animated image zoom */
+.zoom-image-container {
+  overflow: hidden;
+}
+
+.zoom-image {
+  transition: transform 0.7s cubic-bezier(0.25, 0.1, 0.25, 1.0);
+}
+
+.zoom-image-container:hover .zoom-image {
+  transform: scale(1.05);
+}
+
+/* Add more distinct focus styles for accessibility */
+a:focus,
+button:focus,
+input:focus,
+select:focus,
+textarea:focus {
+  outline: 2px solid #4F46E5;
+  outline-offset: 2px;
+} 
+
+/* Add sleeker transitions */
+.transition-all {
+  transition-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1.0);
+}
+
+/* Add sleek scrollbar */
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(120, 120, 120, 0.3);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(120, 120, 120, 0.5);
+}
+
+/* Improve focus visibility for keyboard navigation */
+:focus-visible {
+  outline: 2px solid #4F46E5;
+  outline-offset: 2px;
+}
+
+/* Image hover effects */
+img.grayscale {
+  filter: grayscale(100%);
+  transition: all 0.7s cubic-bezier(0.25, 0.1, 0.25, 1.0);
+}
+
+img.grayscale:hover {
+  filter: grayscale(0%);
+  transform: scale(1.02);
+}
+
+/* Image split hover effect */
+.split-image-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.split-image-layer {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  transition: all 0.5s cubic-bezier(0.25, 0.1, 0.25, 1.0);
+}
+
+.split-image-layer-1 {
+  clip-path: polygon(0 0, 100% 0, 100% 50%, 0 50%);
+}
+
+.split-image-layer-2 {
+  clip-path: polygon(0 50%, 100% 50%, 100% 100%, 0 100%);
+}
+
+.split-image-container:hover .split-image-layer-1 {
+  transform: translateY(-10px);
+}
+
+.split-image-container:hover .split-image-layer-2 {
+  transform: translateY(10px);
+}
+
+/* Premium button effects */
+.premium-btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.premium-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(120deg, 
+    rgba(255,255,255,0) 30%, 
+    rgba(255,255,255,0.2) 50%, 
+    rgba(255,255,255,0) 70%);
+  background-size: 200% 100%;
+  animation: subtle-shine 6s infinite ease-in-out;
+}
+
+/* Luxury text effects */
+.luxury-title {
+  letter-spacing: -0.02em;
+  font-kerning: normal;
+}
+
+/* Elegant border effect */
+.elegant-border {
+  position: relative;
+}
+
+.elegant-border::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 1px;
+  background: currentColor;
+  transition: all 0.3s cubic-bezier(0.25, 0.1, 0.25, 1.0);
+  transform: translateX(-50%);
+}
+
+.elegant-border:hover::after {
+  width: 100%;
+}
+
+/* Ultra-premium card styling */
+.premium-card {
+  transition: all 0.4s cubic-bezier(0.25, 0.1, 0.25, 1.0);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+}
+
+.premium-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+@layer utilities {
+  .text-gold-500 {
+    color: #d4af37;
+  }
+  .hover\:text-gold-300:hover {
+    color: #f5d076;
+  }
+  .bg-gold-500 {
+    background-color: #d4af37;
+  }
+  .bg-gold-500\/10 {
+    background-color: rgba(212, 175, 55, 0.1);
+  }
+} 
+
+/* Space agency inspired effects */
+.space-title {
+  text-shadow: 
+    0 0 30px rgba(255,255,255,0.5),
+    0 0 60px rgba(255,255,255,0.3),
+    0 0 90px rgba(255,255,255,0.2);
+  letter-spacing: -0.02em;
+  position: relative;
+}
+
+.glow-text {
+  animation: textGlow 4s ease-in-out infinite alternate;
+}
+
+.glow-ring {
+  box-shadow: 
+    0 0 30px rgba(255,255,255,0.2),
+    inset 0 0 30px rgba(255,255,255,0.2);
+  animation: ringPulse 4s ease-in-out infinite;
+}
+
+.glow-line {
+  box-shadow: 0 0 10px rgba(255,255,255,0.5);
+  animation: linePulse 3s ease-in-out infinite;
+}
+
+/* Particle animation for background */
+.particles-container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: 
+    radial-gradient(circle at center,
+      rgba(255,255,255,0.15) 0%,
+      transparent 15%);
+  background-size: 4px 4px;
+  animation: particleFloat 15s linear infinite;
+  opacity: 0.3;
+  mix-blend-mode: screen;
+}
+
+@keyframes textGlow {
+  0%, 100% {
+    text-shadow: 
+      0 0 30px rgba(255,255,255,0.5),
+      0 0 60px rgba(255,255,255,0.3),
+      0 0 90px rgba(255,255,255,0.2);
+  }
+  50% {
+    text-shadow: 
+      0 0 40px rgba(255,255,255,0.6),
+      0 0 80px rgba(255,255,255,0.4),
+      0 0 120px rgba(255,255,255,0.3);
+  }
+}
+
+@keyframes ringPulse {
+  0%, 100% {
+    box-shadow: 
+      0 0 30px rgba(255,255,255,0.2),
+      inset 0 0 30px rgba(255,255,255,0.2);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(255,255,255,0.3),
+                inset 0 0 40px rgba(255,255,255,0.3);
+  }
+}
+
+@keyframes linePulse {
+  0%, 100% {
+    opacity: 0.5;
+    transform: scaleX(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scaleX(1.2);
+  }
+}
+
+@keyframes particleFloat {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 100px 100px;
+  }
+}
+
+/* Enhanced slide transitions */
+.slide-image {
+  filter: grayscale(100%) contrast(120%);
+  transition: all 0.7s cubic-bezier(0.25, 0.1, 0.25, 1.0);
+}
+
+.slide-image:hover {
+  filter: grayscale(70%) contrast(130%);
+}
+
+/* Add a subtle text float animation */
+@keyframes textFloat {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+/* Apply the float animation to the main title */
+.space-title {
+  animation: textFloat 6s ease-in-out infinite;
+}
+
+/* Glowing button effect */
+.glow-button {
+  position: relative;
+  text-shadow: 0 0 10px rgba(255,255,255,0.3);
+  box-shadow: 0 0 20px rgba(255,255,255,0.1),
+              inset 0 0 20px rgba(255,255,255,0.1);
+  transition: all 0.3s ease-in-out;
+}
+
+.glow-button:hover {
+  text-shadow: 0 0 20px rgba(255,255,255,0.5);
+  box-shadow: 0 0 30px rgba(255,255,255,0.2),
+              inset 0 0 30px rgba(255,255,255,0.2);
+}
+
+.glow-button-bg {
+  background: radial-gradient(circle at center,
+              rgba(255,255,255,0.1) 0%,
+              transparent 70%);
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.glow-button:hover .glow-button-bg {
+  opacity: 1;
+}
+
+/* Glowing link effect */
+.glow-text-link {
+  position: relative;
+  text-shadow: 0 0 10px rgba(255,255,255,0.2);
+}
+
+.glow-text-link:hover {
+  text-shadow: 0 0 20px rgba(255,255,255,0.4);
+}
+
+.glow-text-link::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    rgba(255,255,255,0.5) 50%, 
+    transparent 100%);
+  opacity: 0;
+  transform: scaleX(0.7);
+  transition: all 0.3s ease-in-out;
+}
+
+.glow-text-link:hover::after {
+  opacity: 1;
+  transform: scaleX(1);
+}
+
+/* Enhanced gym image effects */
+.gym-image {
+  transform-origin: center;
+  transition: all 1.2s cubic-bezier(0.25, 0.1, 0.25, 1.0);
+}
+
+/* Dynamic light rays effect */
+.light-rays {
+  background: 
+    linear-gradient(45deg, transparent 45%, rgba(255,255,255,0.1) 50%, transparent 55%),
+    linear-gradient(-45deg, transparent 45%, rgba(255,255,255,0.1) 50%, transparent 55%);
+  background-size: 200% 200%;
+  animation: lightMove 8s linear infinite;
+}
+
+/* Animated mesh pattern */
+.mesh-pattern {
+  animation: meshFloat 20s linear infinite;
+  background-size: 60px 60px;
+}
+
+@keyframes lightMove {
+  0% {
+    background-position: -200% -200%;
+  }
+  100% {
+    background-position: 200% 200%;
+  }
+}
+
+@keyframes meshFloat {
+  0% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-10px) scale(1.05);
+  }
+  100% {
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Enhanced title glow animation */
+.space-title {
+  animation: titlePulse 4s ease-in-out infinite;
+}
+
+@keyframes titlePulse {
+  0%, 100% {
+    text-shadow: 
+      0 0 30px rgba(255,255,255,0.5),
+      0 0 60px rgba(255,255,255,0.3),
+      0 0 90px rgba(255,255,255,0.2);
+    transform: translateY(0);
+  }
+  50% {
+    text-shadow: 
+      0 0 40px rgba(255,255,255,0.6),
+      0 0 80px rgba(255,255,255,0.4),
+      0 0 120px rgba(255,255,255,0.3);
+    transform: translateY(-5px);
+  }
+}
+
+/* Luxury badge glow */
+.badge-glow {
+  animation: badgePulse 3s ease-in-out infinite;
+}
+
+@keyframes badgePulse {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(255,255,255,0.1);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(255,255,255,0.2);
+  }
+}
+
+/* Modern title styling */
+.modern-title {
+  letter-spacing: -0.02em;
+  font-kerning: normal;
+  text-shadow: 0 0 30px rgba(255,255,255,0.2);
+}
+
+/* Clean transitions */
+.transition-all {
+  transition-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1.0);
+}
+
+/* Subtle hover effects */
+.hover-fade {
+  transition: opacity 0.3s ease;
+}
+
+.hover-fade:hover {
+  opacity: 0.8;
+}
+
+/* Logo-style text effect */
+.logo-text {
+  display: inline-block;
+  letter-spacing: 0.05em;
+  font-weight: 800;
+  background: linear-gradient(to right, #fff 20%, rgba(255,255,255,0.7) 40%, rgba(255,255,255,0.9) 60%, #fff 80%);
+  background-size: 200% auto;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shine 8s linear infinite;
+  position: relative;
+  text-shadow: 0 0 10px rgba(255,255,255,0.1);
+  padding: 0.2em 0;
+}
+
+.logo-text::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 2px;
+  width: 100%;
+  background: linear-gradient(to right, transparent, rgba(255,255,255,0.8), transparent);
+  opacity: 0.6;
+}
+
+@keyframes shine {
+  to {
+    background-position: 200% center;
+  }
+}
+
+/* Add subtle glow effect */
+.logo-text {
+  position: relative;
+  z-index: 1;
+}
+
+.logo-text::before {
+  content: '';
+  position: absolute;
+  inset: -20px -40px;
+  background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+  z-index: -1;
+}
+
+/* Equipment icon styles */
+.equipment-icon svg {
+  filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.3));
+}
+
+/* Interactive equipment hover */
+.equipment-icon {
+  transition: transform 0.3s ease;
+}
+
+.equipment-icon:hover {
+  transform: scale(1.2) rotate(10deg);
+}
+
+/* Add 3D-like depth */
+@media (prefers-reduced-motion: no-preference) {
+  .equipment-icon svg {
+    transform: perspective(300px) rotateX(10deg);
+    transform-style: preserve-3d;
+  }
+} 

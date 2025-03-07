@@ -1,0 +1,43 @@
+{
+  "name": "Space Seven Gym & Nutrition",
+  "short_name": "Space Seven",
+  "description": "Premium fitness center with AI-powered workout plans and nutrition guidance",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#111827",
+  "theme_color": "#4F46E5",
+  "icons": [
+    {
+      "src": "/icons/icon-192x192.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-512x512.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Workout Plans",
+      "short_name": "Workouts",
+      "description": "Create a personalized workout plan",
+      "url": "/gym/workout-plans"
+    },
+    {
+      "name": "Nutrition Plans",
+      "short_name": "Nutrition",
+      "description": "Create a personalized nutrition plan",
+      "url": "/create-plan"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/screenshots/homepage.jpg",
+      "sizes": "1280x720",
+      "type": "image/jpeg"
+    }
+  ]
+} 

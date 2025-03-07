@@ -1,0 +1,102 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Helper functions
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+    
+    function isAdmin() {
+      return isAuthenticated() && 
+        exists(/databases/$(database)/documents/users/$(request.auth.uid)) &&
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
+    }
+    
+    function isValidNewUser() {
+      let user = request.resource.data;
+      return user.size() <= 10 && 
+        user.keys().hasOnly(['uid', 'email', 'displayName', 'photoURL', 'preferences', 'metricsHistory', 'createdAt', 'role', 'lastLogin', 'emailVerified']) &&
+        (user.role == 'user' || (user.role == 'admin' && isAdmin()));
+    }
+    
+    // User document rules
+    match /users/{userId} {
+      allow get: if isAuthenticated() && (isOwner(userId) || isAdmin());
+      allow list: if isAdmin();
+      allow create: if isOwner(userId) && isValidNewUser();
+      allow update: if (isOwner(userId) || isAdmin()) && 
+                     request.resource.data.role == resource.data.role; // Can't change your own role
+      allow delete: if isAdmin();
+    }
+    
+    // Nutrition plans rules
+    match /nutrition_plans/{planId} {
+      allow get: if isAuthenticated() && (resource.data.userId == request.auth.uid || isAdmin());
+      allow list: if isAuthenticated() && 
+                   request.query.limit <= 50 && 
+                   (request.query.where.userId == request.auth.uid || isAdmin());
+      allow create: if isAuthenticated() && request.resource.data.userId == request.auth.uid;
+      allow update: if isAuthenticated() && resource.data.userId == request.auth.uid;
+      allow delete: if isAuthenticated() && resource.data.userId == request.auth.uid;
+    }
+    
+    // Workout plans rules
+    match /workout_plans/{planId} {
+      allow get: if isAuthenticated() && (resource.data.userId == request.auth.uid || isAdmin());
+      allow list: if isAuthenticated() && 
+                   request.query.limit <= 50 && 
+                   (request.query.where.userId == request.auth.uid || isAdmin());
+      allow create: if isAuthenticated() && request.resource.data.userId == request.auth.uid;
+      allow update: if isAuthenticated() && resource.data.userId == request.auth.uid;
+      allow delete: if isAuthenticated() && resource.data.userId == request.auth.uid;
+    }
+    
+    // Food database - read-only for authenticated users, admin can manage
+    match /foods/{foodId} {
+      allow get, list: if isAuthenticated();
+      allow create, update, delete: if isAdmin();
+    }
+    
+    // Consultations
+    match /consultations/{consultId} {
+      allow get: if isAuthenticated() && (resource.data.userId == request.auth.uid || isAdmin());
+      allow list: if isAuthenticated() && 
+                   request.query.limit <= 50 && 
+                   (request.query.where.userId == request.auth.uid || isAdmin());
+      allow create: if isAuthenticated() && request.resource.data.userId == request.auth.uid;
+      allow update: if isAdmin() || (
+                    isAuthenticated() && 
+                    resource.data.userId == request.auth.uid && 
+                    request.resource.data.userId == request.auth.uid &&
+                    request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status', 'notes', 'updatedAt'])
+                  );
+      allow delete: if isAdmin();
+    }
+    
+    // Classes
+    match /classes/{classId} {
+      allow get, list: if isAuthenticated();
+      allow create, update, delete: if isAdmin();
+      
+      // Class registration
+      match /registrations/{regId} {
+        allow get: if isAuthenticated() && (resource.data.userId == request.auth.uid || isAdmin());
+        allow list: if isAuthenticated() && 
+                     (request.query.where.userId == request.auth.uid || isAdmin());
+        allow create: if isAuthenticated() && request.resource.data.userId == request.auth.uid;
+        allow update: if isAuthenticated() && resource.data.userId == request.auth.uid;
+        allow delete: if isAuthenticated() && (resource.data.userId == request.auth.uid || isAdmin());
+      }
+    }
+    
+    // Default deny all other requests
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+} 

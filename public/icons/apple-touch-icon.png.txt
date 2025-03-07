@@ -1,0 +1,13 @@
+This is a placeholder for the Apple touch icon file.
+
+To create a real Apple touch icon:
+1. Use an image editor like Photoshop, GIMP, or an online tool.
+2. Create a 180x180 pixel square image with your app logo.
+3. Save as PNG with no transparency (Apple touch icons don't use transparency).
+4. Replace this text file with your actual icon and rename it to remove the .txt extension.
+
+For iOS requirements, this icon should be:
+- 180x180 pixels
+- PNG format without transparency
+- No rounded corners (iOS will apply the rounding automatically)
+- No drop shadows (iOS will apply effects) 
